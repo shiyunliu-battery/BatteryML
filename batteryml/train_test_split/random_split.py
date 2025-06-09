@@ -31,9 +31,8 @@ class RandomTrainTestSplitter(BaseTrainTestSplitter):
             result = []
             for name in names:
                 basename = name.rsplit('/', 1)[1]
-                for cell in self.cell_to_drop:
-                    if cell in basename:
-                        continue
+                if any(cell in basename for cell in self.cell_to_drop):
+                    continue
                 result.append(name)
             return result
         random.seed(self.seed)
